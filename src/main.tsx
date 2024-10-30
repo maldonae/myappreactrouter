@@ -1,41 +1,27 @@
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // page components
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+import App from "./App";
 
 // router creation
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: (
-      <>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-        <main>
-          <Home />
-        </main>
-      </>
-    ),
-  },
-  {
-    path: "/about",
-    element: (
-      <>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-        </nav>
-        <main>
-          <About />
-        </main>
-      </>
-    ),
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+    ],
   },
 ]);
 
@@ -44,7 +30,5 @@ const router = createBrowserRouter([
 const rootElement = document.getElementById("root");
 
 if (rootElement != null) {
-  ReactDOM.createRoot(rootElement).render(
-    <RouterProvider router={router} />
-  );
+  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }
